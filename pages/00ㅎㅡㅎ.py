@@ -1,0 +1,2 @@
+import streamliy as st
+sr.image (https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzkwamw4bWlxOGw3bGJnY3JmMWNvamp5ZWU2bXlvMzV3OHNveXc0aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SVZLpfxFdhfTo6ZDgz/giphy.gif)
