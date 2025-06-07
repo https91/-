@@ -1,0 +1,32 @@
+# 파일명: app.py
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+import numpy as np
+
+st.title("미생물 생장 곡선 시각화")
+
+uploaded_file = st.file_uploader("CSV 파일 업로드 (시간 vs OD)", type="csv")
+
+def logistic_model(t, K, r, t0):
+    return K / (1 + np.exp(-r * (t - t0)))
+
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+    st.write(data.head())
+
+    time = data['Time']
+    od = data['OD']
+
+    popt, _ = curve_fit(logistic_model, time, od, maxfev=10000)
+    t_fit = np.linspace(min(time), max(time), 100)
+    od_fit = logistic_model(t_fit, *popt)
+
+    plt.figure()
+    plt.scatter(time, od, label="실측값")
+    plt.plot(t_fit, od_fit, 'r--', label="로지스틱 모델")
+    plt.xlabel("시간 (h)")
+    plt.ylabel("OD (세포농도)")
+    plt.legend()
+    st.pyplot(plt)
